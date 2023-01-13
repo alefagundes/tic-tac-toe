@@ -1,5 +1,6 @@
 import style from './Home.module.css'
 import { useState, useEffect } from 'react'
+import Message from '../components/Message'
 
 const winningCombinations = [
   //possible combination
@@ -24,6 +25,9 @@ const Home = () => {
   const [turn, setTurn] = useState(1)
   const [winningCombo, setWinningCombo] = useState(null)
   const [winner, setWinner] = useState(null)
+  const [poinX, setPointX] = useState(0)
+  const [poinO, setPointO] = useState(0)
+  const [message, setMessage] = useState('')
 
   const handleClick = (clickedIndex) => {
     if (gameData[clickedIndex] !== 0) {
@@ -50,11 +54,32 @@ const Home = () => {
 
   useEffect(() => {
     if (winner === 'player 1') {
-      alert(`O ${winner} ganhou - (X)`)
+      setPointX((prev) => prev + 1)
+      setMessage('Player (X) ganhou!')
+      setTimeout(() => {
+        setMessage('')
+        resetGame()
+        setWinningCombo(null)
+        setWinner(null)
+        setTurn(1)
+      }, 2000)
     } else if (winner === 'player 2') {
-      alert(`O ${winner} ganhou - (O)`)
+      setPointO((prev) => prev + 1)
+      setMessage('Player (O) ganhou!')
+      setTimeout(() => {
+        setMessage('')
+        resetGame()
+        setWinningCombo(null)
+        setWinner(null)
+        setTurn(1)
+      }, 2000)
     }
   }, [winner])
+
+  const resetGame = () => {
+    let arr = gameData.map((e) => (e = 0))
+    setGameData(arr)
+  }
 
   const checkGameEnded = () => {
     if (gameData.every((item) => item !== 0)) {
@@ -89,6 +114,11 @@ const Home = () => {
   return (
     <div className={style.tela}>
       {!gameData && <p>Carregando...</p>}
+      {message.length > 0 && <Message msg={message} />}
+      <h1>
+        Player X: <span className={style.x}>{poinX}</span> |{' '}
+        <span className={style.o}>{poinO}</span> Player O
+      </h1>
       <div className={style.border}>
         {gameData &&
           gameData.map((e, index) => (

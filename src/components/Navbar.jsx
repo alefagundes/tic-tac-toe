@@ -11,9 +11,6 @@ const Navbar = () => {
           <GiTicTacToe />
         </span>
       </a>
-      <ul>
-        <a href="#">Portifólio</a>
-      </ul>
     </nav>
   )
 }
