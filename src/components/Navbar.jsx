@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <nav>
       <a href="/" className={style.logo}>
-        Tic tic{' '}
+        Tic tac{' '}
         <span>
           toe
           <GiTicTacToe />
