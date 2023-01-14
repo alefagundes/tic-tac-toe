@@ -28,6 +28,7 @@ const Home = () => {
   const [poinX, setPointX] = useState(0)
   const [poinO, setPointO] = useState(0)
   const [message, setMessage] = useState('')
+  const [type, setType] = useState('')
 
   const handleClick = (clickedIndex) => {
     if (gameData[clickedIndex] !== 0) {
@@ -56,6 +57,7 @@ const Home = () => {
     if (winner === 'player 1') {
       setPointX((prev) => prev + 1)
       setMessage('Player (X) ganhou!')
+      setType('sucess')
       setTimeout(() => {
         setMessage('')
         resetGame()
@@ -66,6 +68,7 @@ const Home = () => {
     } else if (winner === 'player 2') {
       setPointO((prev) => prev + 1)
       setMessage('Player (O) ganhou!')
+      setType('sucess')
       setTimeout(() => {
         setMessage('')
         resetGame()
@@ -83,7 +86,12 @@ const Home = () => {
 
   const checkGameEnded = () => {
     if (gameData.every((item) => item !== 0)) {
-      alert('jogo acabou, deu velha')
+      setMessage('O jogo acabou! Deu velha.')
+      setType('velha')
+      setTimeout(() => {
+        setMessage('')
+        resetGame()
+      }, 2000)
     }
   }
 
@@ -114,7 +122,7 @@ const Home = () => {
   return (
     <div className={style.tela}>
       {!gameData && <p>Carregando...</p>}
-      {message.length > 0 && <Message msg={message} />}
+      {message.length > 0 && <Message msg={message} type={type} />}
       <h1>
         Player X: <span className={style.x}>{poinX}</span> |{' '}
         <span className={style.o}>{poinO}</span> Player O
