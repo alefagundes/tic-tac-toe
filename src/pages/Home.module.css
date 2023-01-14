@@ -18,7 +18,7 @@
   height: 600px;
   flex-wrap: wrap;
   background-color: rgb(95, 160, 245);
-  border: 1px solid #333;
+  border: 3px solid #333;
   padding: 3px;
   box-shadow: 5px 8px 5px rgb(75, 143, 233);
 }
